@@ -1,0 +1,6 @@
+{
+  "sources": [
+    {"name": "blog-rss", "url": "https://example.com/feed.xml"},
+    {"name": "news-page", "url": "https://example.com/news/", "type": "html", "link_pattern": "example\\.com/news/\\d{4}/"}
+  ]
+}
