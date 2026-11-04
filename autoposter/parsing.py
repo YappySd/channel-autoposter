@@ -7,10 +7,9 @@ from datetime import datetime
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from urllib.parse import urljoin
-from xml.etree.ElementTree import ParseError
 
 from defusedxml import DefusedXmlException
-from defusedxml.ElementTree import fromstring
+from defusedxml.ElementTree import ParseError, fromstring
 
 from autoposter.core import Item, plain_title
 

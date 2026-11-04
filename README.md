@@ -29,7 +29,7 @@ autoposter/
   adapters.py  скачивание сайтов и отправка в Bot API (aiohttp)
   config.py    .env и sources.json
   main.py      запуск
-tests/         61 тест
+tests/         62 теста
 ```
 
 Ядро и сервис не ходят в сеть: в тестах сайты и Telegram заменены заглушками, а сетевой слой проверяется на локальном aiohttp-сервере, который изображает и новостной сайт, и Bot API.

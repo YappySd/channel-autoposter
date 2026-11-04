@@ -101,3 +101,9 @@ def test_weekdays_only():
 def test_next_slot_same_day_and_tomorrow():
     assert SCHED.next_slot(datetime(2030, 1, 7, 10)) == datetime(2030, 1, 7, 13)
     assert SCHED.next_slot(datetime(2030, 1, 7, 18)) == datetime(2030, 1, 8, 9)
+
+
+def test_only_web_links_get_into_post():
+    assert "href" not in format_post(Item("s", "t", "javascript:alert(1)"))
+    assert "href" not in format_post(Item("s", "t", "data:text/html,x"))
+    assert 'href="https://ok.example/1"' in format_post(Item("s", "t", "https://ok.example/1"))

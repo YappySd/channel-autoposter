@@ -47,12 +47,12 @@ def normalize_title(title: str) -> str:
 def item_key(item: Item) -> str:
     """Duplicate key: the normalized link, or the title when there is no link."""
     base = normalize_url(item.link) if item.link else "title:" + normalize_title(item.title)
-    return hashlib.sha1(base.encode()).hexdigest()
+    return hashlib.sha1(base.encode(), usedforsecurity=False).hexdigest()  # a key, not protection
 
 
 def title_key(item: Item) -> str:
     """Second key: the same news re-published under a new URL is still a duplicate."""
-    return "t:" + hashlib.sha1(normalize_title(item.title).encode()).hexdigest()
+    return "t:" + hashlib.sha1(normalize_title(item.title).encode(), usedforsecurity=False).hexdigest()
 
 
 def clean_text(raw: str) -> str:
@@ -84,7 +84,8 @@ def format_post(item: Item, *, summary_limit: int = 300, footer: str = "") -> st
     summary = shorten(clean_text(item.summary), summary_limit)
     if summary:
         parts.append(e(summary))
-    if item.link:
+    # Links come from someone else's feed: only plain web links, never javascript: or similar.
+    if item.link and item.link.lower().startswith(("http://", "https://")):
         parts.append(f'<a href="{e(item.link, quote=True)}">Читать полностью</a>')
     if footer:
         parts.append(e(footer))
